@@ -1,0 +1,52 @@
+<div class="register-page">
+    <div class="container">
+        <div class="page-head">
+            <h1>Register</h1>
+            <h3>Welcome to Recruiting Platform</h3>
+            <p>Register to continue</p>
+        </div>
+        <div class="register-form">
+            <form (ngSubmit)="registerUser()">
+                <div class="form-group">
+                    <div class="form-item">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Username</mat-label>
+                            <input matInput placeholder="JohnDeo123" [(ngModel)]="register.UserName" name="username">
+                        </mat-form-field>
+                    </div>
+                    <div class="form-item">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Full Name</mat-label>
+                            <input matInput placeholder="John Deo" [(ngModel)]="register.FullName" name="FullName">
+                        </mat-form-field>
+                    </div>
+                    <div class="form-item">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input matInput placeholder="john@email.com" [(ngModel)]="register.Email" name="Email">
+                        </mat-form-field>
+                    </div>
+                    <div class="form-item">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input matInput placeholder="********" [(ngModel)]="register.Password" name="username">
+                        </mat-form-field>
+                    </div>
+                    <div class="form-item">
+                        <mat-form-field>
+                            <mat-label>Register Role</mat-label>
+                            <mat-select [(ngModel)]="register.Role" name="role">
+                                @for (role of userRole; track role.value) {
+                                <mat-option [value]="role.value">{{role.viewValue}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-actions">
+                        <button matButton="filled" type="submit">Create Account</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

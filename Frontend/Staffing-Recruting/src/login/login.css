@@ -1,0 +1,87 @@
+/* --- Full Page Background & Centering --- */
+.page-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    /* Clean, corporate slate-grey gradient */
+    padding: 20px;
+    font-family: 'Inter', Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* --- The Main Login Card --- */
+.login-container {
+    background: #ffffff;
+    width: 100%;
+    max-width: 420px;
+    /* Keeps the form from getting too wide on desktop */
+    padding: 48px 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    /* Soft, modern shadow */
+    box-sizing: border-box;
+}
+
+/* --- Header Typography --- */
+.login-head {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.login-head h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.5px;
+}
+
+.login-head h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #475569;
+    margin: 0 0 8px 0;
+}
+
+.login-head span {
+    font-size: 0.875rem;
+    color: #94a3b8;
+}
+
+/* --- Form Layout --- */
+.form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    /* Adds perfect spacing between your inputs */
+}
+
+/* Forces the Angular Material inputs to take up the full width of the card */
+.form-value mat-form-field {
+    width: 100%;
+}
+
+/* --- Submit Button --- */
+.form-actions {
+    margin-top: 24px;
+}
+
+.form-actions button {
+    width: 100%;
+    /* Full-width buttons are standard for modern login forms */
+    padding: 24px 0;
+    /* Makes the button slightly taller and easier to click */
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    background-color: #4f46e5;
+    /* A strong, trustworthy indigo */
+    color: white;
+    transition: transform 0.2s ease;
+}
+
+.form-actions button:hover {
+    transform: translateY(-2px);
+    /* Slight lift effect on hover */
+}

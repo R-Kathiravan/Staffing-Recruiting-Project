@@ -9,5 +9,7 @@ namespace Staffing_Recruting_API.Data
 
         public DbSet<Users> Users { get; set; }
 
+        public DbSet<Jobs> Jobs { get; set; }
+
     }
 }

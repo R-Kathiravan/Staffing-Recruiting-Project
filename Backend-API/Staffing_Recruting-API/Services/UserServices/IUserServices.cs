@@ -8,5 +8,7 @@ namespace Staffing_Recruting_API.Services.UserServices
 
         Task<bool> AddUsers(AddUserDTO users);
 
+        Task<bool> CheckUsers(CheckUserDTO checkUser);
+
     }
 }

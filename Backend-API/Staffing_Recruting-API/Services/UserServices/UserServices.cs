@@ -43,8 +43,8 @@ namespace Staffing_Recruting_API.Services.UserServices
                     CreatedAt = DateTime.Now,
                 };
 
-                await _appDbContext.Users.AddAsync(data);
-                _appDbContext.SaveChangesAsync();
+                _appDbContext.Users.Add(data);
+                _appDbContext.SaveChanges();
                 return true;
 
             }
@@ -53,5 +53,25 @@ namespace Staffing_Recruting_API.Services.UserServices
                 throw new Exception("Error while inserting data");
             }
         }
+        public async Task<bool> CheckUsers(CheckUserDTO checkUser)
+        {
+            try
+            {
+                var result = await _appDbContext.Users.Where(u => u.UserName == checkUser.UserName && u.Password == checkUser.Password && u.Role == checkUser.Role).FirstOrDefaultAsync();
+                if (result != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error while checking user");
+            }
+        }
+
     }
 }

@@ -11,12 +11,11 @@ Company_City Nvarchar(200)
 )
 
 Create Table Jobs
-(
-UID int Identity(1,1),
-Jobs_Name nvarchar(200),
-Job_Id nvarchar(100)  primary Key Not Null,
-Job_Description nvarchar(500),
-Job_Location Nvarchar(200),
+( 
+Id int Identity(1,1) primary Key Not Null,
+Name nvarchar(200),
+Description nvarchar(500),
+Location Nvarchar(200),
 Company_ID Nvarchar(100) Not Null,
 Recruiter nvarchar(300),
 Salary decimal,
@@ -30,16 +29,21 @@ CONSTRAINT FK_Company_ID
 
 Create Table Users
 (
-UID int Identity(1,1),
+ID int Identity(1,1),
 UserName Nvarchar(200) Unique,
 FullName Nvarchar(200),
+Email Nvarchar(300),
 Password Nvarchar(200),
 Role Nvarchar(50),
+CreatedAt DateTime
 )
 
+Alter table Users Add  CreatedAt DateTime;
 
 Select * From Jobs
  
 Select * From Compainies 
 
-Drop table Compainies
+Select * From Users
+
+Drop table jobs

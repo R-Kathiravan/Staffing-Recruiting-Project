@@ -1,17 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Staffing_Recruting_API.Model;
+using Staffing_Recruting_API.Services.AuthServices;
 using Staffing_Recruting_API.Services.UserServices;
 
 namespace Staffing_Recruting_API.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class UserController : Controller
     {
-        public readonly UserServices _userServices;
-        public UserController(UserServices userServices)
+        public readonly IUserServices _userServices;
+        private readonly IAuthServices _authServices;
+        public UserController(IUserServices userServices, IAuthServices authServices)
         {
             _userServices = userServices;
+            _authServices = authServices;
         }
 
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Users>>> GetUsers()
         {
             try
@@ -34,6 +40,8 @@ namespace Staffing_Recruting_API.Controllers
             }
         }
 
+        [HttpPost("InsertUsers")]
+
         public async Task<ActionResult> AddUsers(AddUserDTO addUserDTO)
         {
             try
@@ -48,6 +56,29 @@ namespace Staffing_Recruting_API.Controllers
                 {
                     return Created();
                 }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        [HttpPost("CheckUsers")]
+        public async Task<ActionResult<bool>> checkUser(CheckUserDTO checkUserDTO)
+        {
+            try
+            {
+                string token = await _authServices.Login(checkUserDTO);
+
+                if (token == null)
+                {
+                    return Unauthorized("Invalid Username or Password");
+                }
+
+                return Ok(new { token = token });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }
