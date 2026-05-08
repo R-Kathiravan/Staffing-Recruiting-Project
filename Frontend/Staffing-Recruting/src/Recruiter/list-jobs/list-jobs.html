@@ -1,2 +1,42 @@
-<p>list-jobs works!</p>
-<button (click)="getJobs()">Get Jobs</button>
+<div class="page-container dashboard-container">
+    <div class="container">
+        <div class="pagetitle">
+            <h1>Job Listing</h1>
+        </div>
+        
+        <div class="jobs-list-container">
+            
+            <div class="job-empty" *ngIf="jobs.length === 0">
+                <p>No jobs posted yet. Time to hire!</p>
+            </div>
+            
+            <div class="jobs-grid" *ngIf="jobs.length > 0">
+                
+                <div class="job-card" *ngFor="let job of jobs">
+                    
+                    <div class="card-header">
+                        <div class="status-badge" [class.active]="job.Status === 'Active'">
+                            {{ job.Status || 'Active' }}
+                        </div>
+                        <div class="pay-type">{{ job.SalaryType }}</div>
+                    </div>
+                    
+                    <h1 class="job-title">{{ job.Title }}</h1>
+                    <p class="job-location">📍 {{ job.Location }}</p>
+                    
+                    <h3 class="job-salary">
+                        Package Upto {{ job.From_Salary | currency:'INR' }} To {{ job.To_Salary | currency:'INR' }}
+                    </h3>
+                    
+                    <p class="job-description">{{ job.Description }}</p>
+                    
+                    <div class="card-actions">
+                        <button class="view-btn">View Details</button>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

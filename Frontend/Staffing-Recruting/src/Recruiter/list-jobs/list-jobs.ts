@@ -1,16 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RecruitersServices } from '../../Services/Recruiters/Recruiters';
+import { IGetJobs } from '../../Models/Jobs';
+import { SharedModules } from '../../Shared/shared-modules';
 
 @Component({
   selector: 'app-list-jobs',
-  imports: [],
+  imports: [SharedModules],
   templateUrl: './list-jobs.html',
   styleUrl: './list-jobs.css',
 })
-export class ListJobs {
-  constructor(private RecruitersServices:RecruitersServices){}
-getJobs(){
-let res= this.RecruitersServices.retreiveJobs();
-console.log(res);
-}
+export class ListJobs implements OnInit {
+  constructor(private RecruitersServices: RecruitersServices) { }
+  jobs: any[] = [];
+  ngOnInit()  {
+    this.getJobs();
+  }
+  getJobs() {
+    this.RecruitersServices.retreiveJobs().subscribe({
+      next: (respnse: any) => {
+        // alert("Fetched Data" + respnse);
+        this.jobs = respnse;
+        // console.log(this.jobs)
+      },
+      error(ex) {
+        // alert("cant reterive data" + ex.message)
+        console.log(ex);
+      }
+    })
+  }
 }

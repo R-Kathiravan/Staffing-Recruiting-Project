@@ -1,20 +1,26 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+// 1. Import these two new tools
+import { inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  // 1. Grab the token we just saved in Step 1
-  const token = localStorage.getItem('user-token');
+  // 2. Inject the Platform ID so we know where the code is running
+  const platformId = inject(PLATFORM_ID);
 
-  // 2. If a token exists, clone the request and attach it!
-  if (token) {
-    const clonedRequest = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-    // Send the modified request to the backend
-    return next(clonedRequest); 
+  // 3. Wrap your localStorage logic inside this safety check!
+  if (isPlatformBrowser(platformId)) {
+    const token = localStorage.getItem('user-token'); // Or whatever you named it!
+
+    if (token) {
+      const clonedRequest = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      return next(clonedRequest); 
+    }
   }
 
-  // 3. If no token (like when they are first logging in), just let the request pass normally
+  // 4. If we are on the server, or if there is no token, just pass it through normally
   return next(req);
 };

@@ -19,9 +19,9 @@ export class Register {
   }
   
     userRole: UserRoles[] = [
-      { viewValue: 'Admin', value: 'admin' },
-      { viewValue: 'Canditate', value: 'canditate' },
-      { viewValue: 'Recruiter', value: 'recruiter' }
+      { viewValue: 'Admin', value: 'Admin' },
+      { viewValue: 'Canditate', value: 'Canditate' },
+      { viewValue: 'Recruiter', value: 'Recruiter' }
     ]
   
     constructor(private registerServices : LoginServices) { }

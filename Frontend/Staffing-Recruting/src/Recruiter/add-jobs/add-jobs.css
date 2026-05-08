@@ -1,0 +1,97 @@
+/* Premium Minimalist & Cinematic Form Styling */
+.page.container {
+    min-height: 100vh;
+    background-color: #efe9e9; 
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    background: rgba(234, 231, 231, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 48px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+
+    animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+}
+
+.page-title h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 40px;
+   color: black;
+}
+
+/* The Grid Layout */
+.form-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 32px;
+    padding-top: 50px;
+}
+
+/* Make Description span both columns for a cleaner look */
+.form-item:nth-child(2) {
+    grid-column: span 2;
+}
+
+/* Form Actions spanning both columns and aligning right */
+.form-actions {
+    grid-column: span 2;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+
+/* Premium Submit Button */
+.form-actions button {
+    background: #ffffff;
+    color: #000000;
+    padding: 14px 40px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.1);
+}
+
+.form-actions button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.623);
+    background: #f4f4f5;
+}
+.form-item input{
+    color: black;
+}
+
+/* Ensure material inputs span full width of their grid cell */
+mat-form-field {
+    width: 100%;
+}
+
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

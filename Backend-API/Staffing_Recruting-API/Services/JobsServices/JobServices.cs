@@ -12,24 +12,28 @@ namespace Staffing_Recruting_API.Services.JobsServices
             _appDbContext = appDbContext;
         }
 
-        public async Task<IEnumerable<Jobs>> GetJobs()
+        public async Task<IEnumerable<Jobs>> GetJobs(string recruiterId)
         {
-            var jobs = await _appDbContext.Jobs.ToListAsync();
+            string recID = recruiterId;
+            var jobs = await _appDbContext.Jobs.Where(job => job.Recruiter_ID == recruiterId)
+                                                .OrderByDescending(job => job.CreatedAt)
+                                                .ToListAsync();
             return jobs;
         }
 
-        public async Task<bool> AddJobs(AddJobsDTO addjob)
+        public async Task<bool> AddJobs(AddJobsDTO addjob, string recruiterId)
         {
             try
             {
                 var insertData = new Jobs
                 {
-                    Name = addjob.Name,
+                    Title = addjob.Title,
                     Description = addjob.Description,
                     Location = addjob.Location,
-                    Company_ID = addjob.Company_ID,
-                    Recruiter = addjob.Recruiter,
-                    Salary = addjob.Salary,
+                    Recruiter_ID = recruiterId,
+                    From_Salary = addjob.From_Salary,
+                    To_Salary = addjob.To_Salary,
+                    SalaryType = addjob.SalaryType,
                     Status = addjob.Status,
                     CreatedAt = DateTime.Now
                 };

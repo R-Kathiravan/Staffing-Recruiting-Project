@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Staffing_Recruting_API.Model;
 using Staffing_Recruting_API.Services.JobsServices;
@@ -16,13 +17,14 @@ namespace Staffing_Recruting_API.Controllers
         }
         [HttpGet("GetJobs")]
 
-        [Authorize(Roles = "canditate")]
+        [Authorize(Roles = "Recruiter")]
 
         public async Task<ActionResult<IEnumerable<Jobs>>> GetJobs()
         {
             try
             {
-                var jobs = await _jobServices.GetJobs();
+                var recruiterId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var jobs = await _jobServices.GetJobs(recruiterId);
                 if (jobs == null)
                 {
                     return NoContent();
@@ -39,12 +41,13 @@ namespace Staffing_Recruting_API.Controllers
         }
 
         [HttpPost("InsertJobs")]
-
+        [Authorize(Roles = "Recruiter")]
         public async Task<ActionResult<bool>> AddJobs(AddJobsDTO addJobsDTO)
         {
             try
             {
-                var result = await _jobServices.AddJobs(addJobsDTO);
+                var recruiterId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var result = await _jobServices.AddJobs(addJobsDTO, recruiterId);
                 if (result == false)
                 {
                     return BadRequest();

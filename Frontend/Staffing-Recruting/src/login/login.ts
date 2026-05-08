@@ -43,7 +43,7 @@ export class Login {
       },
       error: (err) => {
         alert("Invalid Username, Password, or Role!");
-        console.error(err);
+        console.log(err);
       }
     })
 

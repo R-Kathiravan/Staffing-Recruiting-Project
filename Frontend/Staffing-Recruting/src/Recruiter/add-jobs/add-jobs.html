@@ -1,1 +1,66 @@
-<p>add-jobs works!</p>
+<div class="page container">
+    <div class="container">
+        <div class="page-title">
+            <h1>Add Jobs</h1>
+        </div>
+        <div class="add-jobs-form">
+            <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <div class="form-item">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Job Title</mat-label>
+                            <input matInput formControlName="Title">
+                        </mat-form-field>
+                    </div>
+                    <div class="form-item">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Job Description</mat-label>
+                            <input matInput formControlName="Description">
+                        </mat-form-field>
+                    </div>
+                    <div class="form-item">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Job Location</mat-label>
+                            <input matInput formControlName="Location">
+                        </mat-form-field>
+                    </div>
+                    <div class="form-item">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Expected Salary(FROM)</mat-label>
+                            <input matInput formControlName="From_Salary" type="number">
+                        </mat-form-field>
+                    </div>
+                    <div class="form-item">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Expected Salary(TO)</mat-label>
+                            <input matInput formControlName="To_Salary" type="number">
+                        </mat-form-field>
+                    </div>
+                    <div class="form-item">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Pay Type</mat-label>
+                            <mat-select formControlName="SalaryType">
+                                <mat-option value="Hourly">Hourly</mat-option>
+                                <mat-option value="Daily">Daily</mat-option>
+                                <mat-option value="Monthly">Monthly</mat-option>
+                                <mat-option value="Yearly">Yearly</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-item">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Job Status</mat-label>
+                            <mat-select formControlName="Status">
+                                <mat-option value="Active">Active</mat-option>
+                                <mat-option value="InActive">InActive</mat-option>
+                                <mat-option value="Closed">Closed</mat-option>
+                            </mat-select> </mat-form-field>
+                    </div>
+                    <div class="form-actions">
+                        <button matButton type="submit">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

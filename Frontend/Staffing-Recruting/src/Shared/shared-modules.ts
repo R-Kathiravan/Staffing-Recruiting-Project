@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
+ 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -66,7 +66,7 @@ const MATERIAL_MODULES = [
     MatStepperModule,
     MatTabsModule,
     MatAutocompleteModule,
-    MatProgressBarModule
+    MatProgressBarModule,
 ];
 
 @NgModule({

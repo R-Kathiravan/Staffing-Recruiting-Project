@@ -13,18 +13,17 @@ Company_City Nvarchar(200)
 Create Table Jobs
 ( 
 Id int Identity(1,1) primary Key Not Null,
-Name nvarchar(200),
-Description nvarchar(500),
+Title nvarchar(200),
+Description nvarchar(Max),
 Location Nvarchar(200),
-Company_ID Nvarchar(100) Not Null,
-Recruiter nvarchar(300),
-Salary decimal,
+Recruiter_ID nvarchar(300),
+From_Salary decimal(18,2),
+To_Salary decimal(18,2),
+SalaryType Nvarchar(100),
 Status nvarchar(100),
-CreatedAt DateTime,
-CONSTRAINT FK_Company_ID
-        FOREIGN KEY (Company_ID) REFERENCES Compainies(Company_ID)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
+CreatedAt DateTime, 
+CONSTRAINT CHK_Job_SalaryText CHECK (SalaryType IN ('Hourly', 'Daily', 'Monthly', 'Yearly')),
+CONSTRAINT CHK_STATUS CHECK(Status IN('Active','InActive','Closed'))
 )
 
 Create Table Users
@@ -47,3 +46,10 @@ Select * From Compainies
 Select * From Users
 
 Drop table jobs
+
+ALTER TABLE Jobs
+DROP Column Company_ID;
+
+update Users Set Role = 'Recruiter' where Role = 'recruiter'
+
+Delete From Users Where ID=4
