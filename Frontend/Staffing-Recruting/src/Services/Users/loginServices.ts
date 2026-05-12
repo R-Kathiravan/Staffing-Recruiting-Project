@@ -23,4 +23,6 @@ export class LoginServices {
         console.log(data);
         return this.http.post<InsertUsers[]>(`${this.baseURL}/InsertUsers`,data)
     }
+
+    
 }

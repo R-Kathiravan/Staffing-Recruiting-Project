@@ -19,7 +19,7 @@ export class Login {
 
   userRole: UserRoles[] = [
     { viewValue: 'Admin', value: 'Admin' },
-    { viewValue: 'Candidate', value: 'Canditate' },
+    { viewValue: 'Candidate', value: 'Candidate' },
     { viewValue: 'Recruiter', value: 'Recruiter' }
   ]
 
@@ -38,12 +38,13 @@ export class Login {
           this.router.navigate(["/recruiter"]);
         }
         else if (this.login.role == "Candidate") {
-          this.router.navigate(['/canditate-dashboard']);
+          this.router.navigate(['/candidate-home']);
         }
       },
       error: (err) => {
-        alert("Invalid Username, Password, or Role!");
+        alert("Invalid Username, Password, or Role!  '"+err.message);
         console.log(err);
+        localStorage.removeItem("user-token");
       }
     })
 

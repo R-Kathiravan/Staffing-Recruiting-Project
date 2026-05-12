@@ -1,0 +1,47 @@
+<div class="page-container dashboard-container">
+    <div class="container">
+        <div class="page-title">
+            <h1>Welcome User</h1>
+            <div class="profile-btn">
+                <button matButton>My Profile</button>
+            </div>
+        </div>
+
+        <div class="empty-state" *ngIf="!Jobs || Jobs.length === 0">
+            <div class="empty-icon">📂</div>
+            <p>No Jobs Available Right Now</p>
+            <span>Check back soon for new opportunities.</span>
+        </div>
+
+        <div class="jobs-wrapper" *ngIf="Jobs && Jobs.length > 0">
+            <h2 class="section-heading">Available Roles</h2>
+
+            <div class="jobs-grid">
+
+                <div class="job-card" *ngFor="let job of Jobs">
+
+                    <div class="card-header">
+                        <span class="job-status" [class.active]="job.Status === 'Active'">{{job.Status}}</span>
+                        <span class="job-posted">{{job.CreatedAt | date:'mediumDate'}}</span>
+                    </div>
+
+                    <div class="card-body">
+                        <h1 class="job-title">{{job.Title}}</h1>
+                        <p class="job-loc">📍 {{job.Location}}</p>
+                        <p class="job-desc">{{job.Description}}</p>
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="salary-block">
+                            <span class="salary-range">{{job.From_Salary | currency:'INR'}} - {{job.To_Salary |
+                                currency:'INR'}}</span>
+                            <span class="salary-type">{{job.SalaryType}}</span>
+                        </div>
+                        <button class="apply-btn" [routerLink]="['/apply-job',job.Id]">Apply Now</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

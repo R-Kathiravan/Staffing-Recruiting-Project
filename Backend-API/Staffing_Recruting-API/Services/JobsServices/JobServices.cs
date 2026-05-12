@@ -47,5 +47,58 @@ namespace Staffing_Recruting_API.Services.JobsServices
                 throw new Exception("Error while inserting data", ex);
             }
         }
+
+        public async Task<bool> UpdateJobs(UpdateJobsDTO updateJobsDTO)
+        {
+            try
+            {
+                var job = await _appDbContext.Jobs.FindAsync(updateJobsDTO.ID);
+                if (job == null)
+                {
+                    return false;
+                }
+                job.Title = updateJobsDTO.Title;
+                job.Description = updateJobsDTO.Description;
+                job.Location = updateJobsDTO.Location;
+                job.From_Salary = updateJobsDTO.From_Salary;
+                job.To_Salary = updateJobsDTO.To_Salary;
+                job.SalaryType = updateJobsDTO.SalaryType;
+                job.Status = updateJobsDTO.Status;
+                _appDbContext.Jobs.Update(job);
+                await _appDbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+                throw new Exception("Error while updating data", ex);
+            }
+        }
+
+        public async Task<IEnumerable<GetJobs>> GetAllJobs()
+        {
+            try
+            {
+                var jobs = await _appDbContext.Jobs.Select(job => new GetJobs
+                {
+                    Id = job.Id,
+                    Title = job.Title,
+                    Description = job.Description,
+                    Location = job.Location,
+                    Recruiter_ID = job.Recruiter_ID,
+                    From_Salary = job.From_Salary,
+                    To_Salary = job.To_Salary,
+                    SalaryType = job.SalaryType,
+                    Status = job.Status,
+                    CreatedAt = job.CreatedAt
+                }).ToListAsync();
+
+                return jobs;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error while retrieving data", ex);
+            }
+        }
     }
 }

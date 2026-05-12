@@ -11,5 +11,9 @@ namespace Staffing_Recruting_API.Data
 
         public DbSet<Jobs> Jobs { get; set; }
 
+        public DbSet<JobApplications> JobApplications { get; set; }
+
+        public DbSet<CandidateProfile> CandidateProfile { get; set; }
+
     }
 }

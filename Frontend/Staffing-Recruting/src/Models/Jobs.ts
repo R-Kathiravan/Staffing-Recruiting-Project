@@ -22,6 +22,7 @@ export interface IAddJobs {
 }
 
 export interface IGetJobs {
+    Id:number;
     Title: string;
     Description: string;
     Location: string;

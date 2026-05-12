@@ -5,6 +5,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Staffing_Recruting_API.Data;
 using Staffing_Recruting_API.Services.AuthServices;
+using Staffing_Recruting_API.Services.CandidateProfileServices;
+using Staffing_Recruting_API.Services.JobApplication;
+using Staffing_Recruting_API.Services.JobApplicationServices;
 using Staffing_Recruting_API.Services.JobsServices;
 using Staffing_Recruting_API.Services.UserServices;
 
@@ -75,6 +78,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddScoped<IJobServices, JobServices>();
 builder.Services.AddScoped<IAuthServices, AuthServices>();
+builder.Services.AddScoped<IJobApplicationServices, JobApplicationServices>();
+builder.Services.AddScoped<ICandidateProfile, CandidateProfileServices>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularDev",

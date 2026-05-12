@@ -25,3 +25,10 @@ export interface UserRoles{
     value:string;
     viewValue:string;
 }
+
+export interface UserDetails{
+    UserName:string;
+    FullName:string;
+    Email:string;
+    Role:string;
+}

@@ -47,4 +47,12 @@
         public required string Role { get; set; }
 
     }
+
+    public class GetUserDetailsDTO
+    {
+        public string UserName { get; set; }
+        public string FullName { get; set; }
+        public required string Email { get; set; }
+        public required string Role { get; set; }
+    }
 }

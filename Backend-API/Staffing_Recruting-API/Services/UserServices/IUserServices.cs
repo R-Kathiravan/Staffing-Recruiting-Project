@@ -10,5 +10,7 @@ namespace Staffing_Recruting_API.Services.UserServices
 
         Task<bool> CheckUsers(CheckUserDTO checkUser);
 
+        Task<GetUserDetailsDTO> GetUserDetails(int userId);
+
     }
 }

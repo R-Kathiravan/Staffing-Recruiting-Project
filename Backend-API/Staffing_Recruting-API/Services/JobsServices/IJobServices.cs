@@ -9,5 +9,9 @@ namespace Staffing_Recruting_API.Services.JobsServices
         Task<bool> AddJobs(AddJobsDTO jobs, string recId);
 
         //Task<bool> UpdateJobs(AddJobsDTO jobs);
+
+        Task<IEnumerable<GetJobs>> GetAllJobs();
+
+        Task<bool> UpdateJobs(UpdateJobsDTO jobs);
     }
 }

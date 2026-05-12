@@ -73,5 +73,24 @@ namespace Staffing_Recruting_API.Services.UserServices
             }
         }
 
+        public async Task<GetUserDetailsDTO> GetUserDetails(int ID)
+        {
+            try
+            {
+                var result = await _appDbContext.Users.Where(id => id.ID == ID).Select(u => new GetUserDetailsDTO
+                {
+                    UserName = u.UserName,
+                    FullName = u.FullName,
+                    Email = u.Email,
+                    Role = u.Role
+                }).FirstOrDefaultAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error while retreiving data", ex);
+            }
+
+        }
     }
 }
