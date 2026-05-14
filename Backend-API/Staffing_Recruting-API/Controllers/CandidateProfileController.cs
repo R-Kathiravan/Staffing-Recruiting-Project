@@ -7,7 +7,7 @@ using Staffing_Recruting_API.Services.CandidateProfileServices;
 namespace Staffing_Recruting_API.Controllers
 {
     [ApiController]
-    [Route("api/Controller")]
+    [Route("api/[controller]")]
     public class CandidateProfileController : Controller
     {
         private ICandidateProfile _candidateProfile;
@@ -48,6 +48,7 @@ namespace Staffing_Recruting_API.Controllers
             try
             {
                 var candidateID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
                 var result = await _candidateProfile.GetCandidateProfile(Convert.ToInt16(candidateID));
                 if (result == null)
                 {

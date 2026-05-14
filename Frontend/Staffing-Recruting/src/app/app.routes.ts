@@ -8,6 +8,7 @@ import { AddJobs } from '../Recruiter/add-jobs/add-jobs';
 import { ListJobs } from '../Recruiter/list-jobs/list-jobs';
 import { CandidateHome } from '../Candidate/candidate-home/candidate-home';
 import { ApplyJob } from '../Candidate/apply-job/apply-job';
+import { CandidateProfile } from '../Candidate/candidate-profile/candidate-profile';
 
 export const routes: Routes = [
     {
@@ -43,5 +44,9 @@ export const routes: Routes = [
     },{
         path:'apply-job/:id',
         component:ApplyJob
+    },
+    {
+        path:'candidate-profile',
+        component:CandidateProfile
     }
 ];

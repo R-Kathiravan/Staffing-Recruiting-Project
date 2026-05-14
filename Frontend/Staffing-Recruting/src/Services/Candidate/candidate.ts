@@ -30,10 +30,16 @@ export class CandidateServices {
     private candidateURL = 'https://localhost:7141/api/CandidateProfile'
 
     GetCandidateProfile(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.userURL}/GetCandidateProfile`)
+        return this.http.get<any[]>(`${this.candidateURL}/GetCandidateProfile`)
     }
 
-    CreateCandidateProfile(data: IAddCandidateProfile): Observable<any[]> {
-        return this.http.post<any[]>(`${this.candidateURL}/CreateCandidateProfile`, data);
+    CreateCandidateProfile(data: any): Observable<any[]> {
+        return this.http.post<any>(`${this.candidateURL}/CreateCandidateProfile`, data);
+    }
+
+    private FileURl = 'https://localhost:7141/api/FileUploadControler/UploadResume'
+
+    uploadResume(file: any): Observable<any[]> {
+        return this.http.post<any[]>(`${this.FileURl}`, file);
     }
 }

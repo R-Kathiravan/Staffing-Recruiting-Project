@@ -9,7 +9,7 @@ export interface ICandidateProfile {
     Experience: string;
     Education: string;
     LinkedInUrl: string;
-    GitHubUrl: string;
+    GithubUrl: string;
     ResumeUrl: string;
     LastUpdatedAt: string;
 }
@@ -23,6 +23,6 @@ export interface IAddCandidateProfile {
     Experience: string;
     Education: string;
     LinkedInUrl: string;
-    GitHubUrl: string;
+    GithubUrl: string;
     ResumeUrl: File;
 }

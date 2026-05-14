@@ -13,30 +13,51 @@ namespace Staffing_Recruting_API.Services.CandidateProfileServices
         {
             try
             {
-                var result = new CandidateProfile
+                var existingProfile = await _appDbContext.CandidateProfile
+          .FirstOrDefaultAsync(x => x.UserID == candidateID);
+                if (existingProfile == null)
                 {
-                    UserID = candidateID,
-                    FirstName = addCandidate.FirstName,
-                    LastName = addCandidate.LastName,
-                    ProfessionalTitle = addCandidate.ProfessionalTitle,
-                    Bio = addCandidate.Bio,
-                    Skills = addCandidate.Skills,
-                    Experience = addCandidate.Skills,
-                    Education = addCandidate.Education,
-                    LinkedInUrl = addCandidate.LinkedInUrl,
-                    GitHubUrl = addCandidate.GitHubUrl,
-                    ResumeUrl = addCandidate.ResumeUrl,
-                    LastUpdatedAt = DateTime.Now
-                };
+                    var result = new CandidateProfile
+                    {
+                        UserID = candidateID,
+                        FirstName = addCandidate.FirstName,
+                        LastName = addCandidate.LastName,
+                        ProfessionalTitle = addCandidate.ProfessionalTitle,
+                        Bio = addCandidate.Bio,
+                        Skills = addCandidate.Skills,
+                        Experience = addCandidate.Experience,
+                        Education = addCandidate.Education,
+                        LinkedInUrl = addCandidate.LinkedInUrl,
+                        GitHubUrl = addCandidate.GithubUrl,
+                        ResumeUrl = addCandidate.ResumeUrl,
+                        LastUpdatedAt = DateTime.Now
+                    };
 
-                _appDbContext.CandidateProfile.Add(result);
+                    _appDbContext.CandidateProfile.Add(result);
+                }
+                else
+                {
+                    existingProfile.FirstName = addCandidate.FirstName;
+                    existingProfile.LastName = addCandidate.LastName;
+                    existingProfile.ProfessionalTitle = addCandidate.ProfessionalTitle;
+                    existingProfile.Bio = addCandidate.Bio;
+                    existingProfile.Skills = addCandidate.Skills;
+                    existingProfile.Experience = addCandidate.Experience; // Typo fixed!
+                    existingProfile.Education = addCandidate.Education;
+                    existingProfile.LinkedInUrl = addCandidate.LinkedInUrl;
+                    existingProfile.GitHubUrl = addCandidate.GithubUrl;
+                    existingProfile.ResumeUrl = addCandidate.ResumeUrl;
+                    existingProfile.LastUpdatedAt = DateTime.UtcNow;
+
+                    _appDbContext.CandidateProfile.Update(existingProfile);
+                }
                 _appDbContext.SaveChanges();
                 return true;
+
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
-                throw ex;
 
             }
         }
@@ -44,32 +65,42 @@ namespace Staffing_Recruting_API.Services.CandidateProfileServices
         {
             try
             {
-                var result = await _appDbContext.CandidateProfile
-                    .Include(x => x.User)
-                    .FirstOrDefaultAsync(x => x.UserID == num);
-                if (result != null)
-                {
-                    return new GetCandidateProfile
+                // This is pure EF Core LINQ, no raw SQL!
+                var result = await (
+                    from profile in _appDbContext.CandidateProfile
+
+                        // 🔥 Here is the explicit join forcing UserID to match the User's ID
+                    join user in _appDbContext.Users
+                    on profile.UserID equals user.ID
+
+                    where profile.UserID == num
+
+                    // Map the matched data directly into your return object
+                    select new GetCandidateProfile
                     {
-                        ID = result.ID,
-                        UserID = result.UserID,
-                        FirstName = result.FirstName,
-                        LastName = result.LastName,
-                        ProfessionalTitle = result.ProfessionalTitle,
-                        Bio = result.Bio,
-                        Skills = result.Skills,
-                        Experience = result.Experience,
-                        Education = result.Education,
-                        LinkedInUrl = result.LinkedInUrl,
-                        GitHubUrl = result.GitHubUrl,
-                        ResumeUrl = result.ResumeUrl,
-                        LastUpdatedAt = result.LastUpdatedAt
-                    };
-                }
-                else
-                {
-                    return null;
-                }
+                        ID = profile.ID,
+                        UserID = profile.UserID,
+                        FirstName = profile.FirstName,
+                        LastName = profile.LastName,
+                        ProfessionalTitle = profile.ProfessionalTitle,
+                        Bio = profile.Bio,
+                        Skills = profile.Skills,
+                        Experience = profile.Experience,
+                        Education = profile.Education,
+                        LinkedInUrl = profile.LinkedInUrl,
+                        GithubUrl = profile.GitHubUrl,
+                        ResumeUrl = profile.ResumeUrl,
+                        LastUpdatedAt = profile.LastUpdatedAt,
+
+                        // Grabbing from the joined 'user' table
+                        Email = user.Email,
+                        UserName = user.UserName
+                    }
+                ).FirstOrDefaultAsync();
+
+                // If no match is found, 'result' is already null, so we just return it!
+                return result;
+
             }
             catch (Exception ex)
             {

@@ -63,6 +63,7 @@ ProfessionalTitle Nvarchar(200),
 Bio Nvarchar(Max),
 Skills Nvarchar(max),
 Experience Nvarchar(Max),
+Education Nvarchar(MAX),
 LinkedInUrl Nvarchar(200),
 GithubUrl Nvarchar(200),
 ResumeURL Nvarchar(300),
@@ -72,7 +73,7 @@ CONSTRAINT FK_USERID_CANPROFILE FOREIGN KEY (UserID) REFERENCES Users(ID) ON DEL
 
 ALTER TABLE Users ADD CONSTRAINT PK_Users PRIMARY KEY (ID);
 
-Alter table CandidateProfile Add  Experience Nvarchar(Max);
+Alter table CandidateProfile Add  Education Nvarchar(MAX);
 
 Select * From Jobs
  
