@@ -1,1 +1,50 @@
-<p>apply-job works!</p>
+<div class="apply-wrapper">
+  <div class="premium-card loading-state" *ngIf="ApplyJobDetails.length === 0">
+    <div class="spinner"></div>
+    <p>Loading application details...</p>
+  </div>
+
+  <div class="premium-card fade-in" *ngIf="ApplyJobDetails.length > 0">
+
+    <header class="job-header">
+      <span class="eyebrow">Applying For</span>
+      <h1 class="job-title">{{ ApplyJobDetails[0].Title || 'Position' }}</h1>
+      <p class="job-meta">
+        {{ 'Confidential' }} &bull; {{ ApplyJobDetails[0].Location || 'Location' }}
+      </p>
+      <span class="application-count">{{ApplyJobDetails[0].ApplicationCount}} applicants for this application</span>
+    </header>
+
+    <div class="resume-badge">
+      <div class="icon-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
+          <path d="M14 3v5h5M16 13H8M16 17H8M10 9H8" />
+        </svg>
+      </div>
+      <div class="badge-text">
+        <span class="badge-title">Resume Attached</span>
+        <span class="badge-filename">{{ displayResumeName }}</span>
+      </div>
+      <div class="status-icon">✓</div>
+    </div>
+
+    <form (ngSubmit)="ApplyJob()" class="apply-form">
+      <div class="form-group">
+        <label for="coverLetter">Why are you a great fit? (Optional)</label>
+        <textarea id="coverLetter" [(ngModel)]="applyDetails.CoverLetterURL" name="CoverLetterURL" rows="5"
+          placeholder="Write a brief pitch to stand out..." class="premium-input">
+        </textarea>
+      </div>
+
+      <button type="submit" class="apple-btn" [disabled]="isSubmitting">
+        <span *ngIf="!isSubmitting">Submit Application</span>
+        <span *ngIf="isSubmitting" class="submitting-text">
+          <span class="mini-spinner"></span> Sending...
+        </span>
+      </button>
+    </form>
+
+  </div>
+</div>

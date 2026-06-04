@@ -1,0 +1,62 @@
+<div class="dashboard-wrapper">
+  
+  <header class="dashboard-header fade-in">
+    <h1 class="premium-title">Applicant Review</h1>
+    <p class="subtitle">Evaluate candidates and review their profiles.</p>
+  </header>
+
+  <div class="empty-state" *ngIf="applicantsList.length === 0">
+    <div class="empty-icon">📭</div>
+    <h2>No applicantsList yet</h2>
+    <p>Check back later once candidates start applying.</p>
+  </div>
+
+  <div class="applicants-grid fade-in" *ngIf="applicantsList.length > 0">
+    
+    <article class="applicant-card" *ngFor="let app of applicantsList">
+      
+      <div class="card-header">
+        <div class="identity">
+          <h2 class="candidate-name">{{ app.FullName }}</h2>
+          <h3 class="candidate-title">{{ app.ProfessionalTitle }}</h3>
+        </div>
+        <div class="status-badge" [class.applied]="app.Status === 'Applied'">
+          {{ app.Status }}
+        </div>
+      </div>
+
+      <div class="meta-row">
+        <span class="meta-item">💼 {{ app.Experience }}</span>
+        <span class="meta-item">🎓 {{ app.Education }}</span>
+        <span class="meta-item">📅 {{ app.AppliedAt | date:'mediumDate' }}</span>
+      </div>
+
+      <div class="skills-container">
+        <span class="skill-chip" *ngFor="let skill of getSkillsArray(app.Skills)">
+          {{ skill }}
+        </span>
+      </div>
+
+      <div class="text-content">
+        <p class="bio-text"><strong>Bio:</strong> {{ app.Bio }}</p>
+        <p class="cover-letter" *ngIf="app.CoverLetter">
+          <strong>Note:</strong> {{ app.CoverLetter }}
+        </p>
+      </div>
+
+      <div class="card-footer">
+        <div class="social-links">
+          <a [href]="formatUrl(app.LinkedInUrl)" target="_blank" class="icon-link">LinkedIn</a>
+          <span class="divider" *ngIf="app.GithubUrl">•</span>
+          <a *ngIf="app.GithubUrl" [href]="formatUrl(app.GithubUrl)" target="_blank" class="icon-link">GitHub</a>
+        </div>
+        
+        <a [href]="backendUrl + app.ResumeUrl" target="_blank" class="apple-btn">
+          View Resume
+        </a>
+      </div>
+
+    </article>
+
+  </div>
+</div>

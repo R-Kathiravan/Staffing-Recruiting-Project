@@ -1,42 +1,76 @@
-<div class="page-container dashboard-container">
-    <div class="container">
-        <div class="pagetitle">
-            <h1>Job Listing</h1>
+<div class="dashboard-wrapper">
+
+    <header class="dashboard-header fade-in">
+        <h1 class="premium-title">Job Listings</h1>
+        <p class="subtitle">Manage your open positions and candidate pipeline.</p>
+    </header>
+
+    <div class="jobs-container fade-in">
+
+        <div class="empty-state" *ngIf="jobs.length === 0">
+            <div class="empty-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path
+                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                    </path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+            </div>
+            <h2>No jobs posted yet</h2>
+            <p>Your pipeline is empty. Time to create a new opening!</p>
         </div>
-        
-        <div class="jobs-list-container">
-            
-            <div class="job-empty" *ngIf="jobs.length === 0">
-                <p>No jobs posted yet. Time to hire!</p>
-            </div>
-            
-            <div class="jobs-grid" *ngIf="jobs.length > 0">
-                
-                <div class="job-card" *ngFor="let job of jobs">
-                    
-                    <div class="card-header">
-                        <div class="status-badge" [class.active]="job.Status === 'Active'">
-                            {{ job.Status || 'Active' }}
-                        </div>
-                        <div class="pay-type">{{ job.SalaryType }}</div>
+
+        <div class="jobs-grid" *ngIf="jobs.length > 0">
+
+            <article class="job-card" *ngFor="let job of jobs">
+
+                <div class="card-top">
+                    <div class="badges">
+                        <span class="status-badge" [class.active]="job.Status === 'Active'">
+                            <span class="dot"></span> {{ job.Status || 'Active' }}
+                        </span>
+                        <span class="type-badge">{{ job.SalaryType }}</span>
                     </div>
-                    
-                    <h1 class="job-title">{{ job.Title }}</h1>
-                    <p class="job-location">📍 {{ job.Location }}</p>
-                    
-                    <h3 class="job-salary">
-                        Package Upto {{ job.From_Salary | currency:'INR' }} To {{ job.To_Salary | currency:'INR' }}
-                    </h3>
-                    
-                    <p class="job-description">{{ job.Description }}</p>
-                    
-                    <div class="card-actions">
-                        <button class="view-btn">View Details</button>
-                    </div>
-                    
                 </div>
-            </div>
-            
+
+                <div class="card-body">
+                    <h2 class="job-title">{{ job.Title }}</h2>
+
+                    <div class="job-meta">
+                        <span class="meta-item">
+                            <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            {{ job.Location }}
+                        </span>
+                        <span class="meta-divider">&bull;</span>
+                        <span class="meta-item">₹{{ job.From_Salary }} - ₹{{ job.To_Salary }}</span>
+                    </div>
+
+                    <p class="job-description">{{ job.Description }}</p>
+                    <div class="posted-date">{{job.CreatedAt | date:'mediumDate'}}</div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="applicant-tracker">
+                        <div class="tracker-badge" *ngIf="job.ApplicationCount > 0">
+                            <span class="tracker-icon">👥</span>
+                            <strong>{{ job.ApplicationCount }}</strong>
+                            {{ job.ApplicationCount === 1 ? 'Applicant' : 'Applicants' }}
+                        </div>
+                        <div class="tracker-badge empty" *ngIf="job.ApplicationCount === 0">
+                            No applicants yet
+                        </div>
+                    </div>
+
+                    <button class="apple-btn-outline" [routerLink]="['/view-candidate', job.Id]">View Details</button>
+                </div>
+
+            </article>
+
         </div>
     </div>
 </div>

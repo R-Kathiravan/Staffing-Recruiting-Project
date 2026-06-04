@@ -10,5 +10,6 @@ namespace Staffing_Recruting_API.Services.CandidateProfileServices
 
         //Task<IEnumerable<CandidateProfile>> GetCandidateProfilesAsync(int num);
         Task<GetCandidateProfile> GetCandidateProfile(int candidateID);
+        Task<GetCandidateResume> GetCandidateResume(int num);
     }
 }

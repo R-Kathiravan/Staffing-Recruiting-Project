@@ -16,11 +16,18 @@
 
         public decimal To_Salary { get; set; }
 
+        public string? RequiredExperience { get; set; }
+
         public string SalaryType { get; set; }
 
         public string Status { get; set; }
 
         public DateTime CreatedAt { get; set; }
+
+        //public int CompanyID { get; set; }
+
+        //public virtual Company Company { get; set; }
+        public virtual ICollection<JobApplication> Applications { get; set; }
     }
 
     public class GetJobs
@@ -38,11 +45,16 @@
 
         public decimal To_Salary { get; set; }
 
+        public string RequiredExperience { get; set; }
+
         public string SalaryType { get; set; }
 
         public string Status { get; set; }
 
         public DateTime CreatedAt { get; set; }
+
+        public int ApplicationCount { get; set; }
+
     }
 
     public class AddJobsDTO
@@ -56,6 +68,8 @@
         public decimal From_Salary { get; set; }
 
         public decimal To_Salary { get; set; }
+        public string RequiredExperience { get; set; }
+
 
         public string SalaryType { get; set; }
 
@@ -76,10 +90,52 @@
         public decimal From_Salary { get; set; }
 
         public decimal To_Salary { get; set; }
+        public string RequiredExperience { get; set; }
+
 
         public string SalaryType { get; set; }
 
         public string Status { get; set; }
+
+        //public int CompanyID { get; set; }
     }
 
+    public class JobResponseDTO
+    {
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
+        public string Location { get; set; }
+
+        public decimal From_Salary { get; set; }
+
+        public decimal To_Salary { get; set; }
+
+        public string RequiredExperience { get; set; }
+
+        public string SalaryType { get; set; }
+
+        public string Status { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public int CompanyID { get; set; }
+        public string CompanyName { get; set; }
+        public string CompanyType { get; set; }
+
+        public string CompanyLocation { get; set; }
+    }
+    public class JobApply
+    {
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
+        public string Location { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public int ApplicationCount { get; set; }
+    }
 }

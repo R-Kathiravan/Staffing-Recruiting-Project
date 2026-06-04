@@ -12,12 +12,25 @@ namespace Staffing_Recruting_API.Services.JobsServices
             _appDbContext = appDbContext;
         }
 
-        public async Task<IEnumerable<Jobs>> GetJobs(string recruiterId)
+        public async Task<IEnumerable<GetJobs>> GetJobs(string recruiterId)
         {
-            string recID = recruiterId;
             var jobs = await _appDbContext.Jobs.Where(job => job.Recruiter_ID == recruiterId)
-                                                .OrderByDescending(job => job.CreatedAt)
-                                                .ToListAsync();
+                                               .OrderByDescending(job => job.CreatedAt)
+                                               .Select(job => new GetJobs
+                                               {
+                                                   Id = job.Id,
+                                                   Title = job.Title,
+                                                   Description = job.Description,
+                                                   Location = job.Location,
+                                                   From_Salary = job.From_Salary,
+                                                   To_Salary = job.To_Salary,
+                                                   SalaryType = job.SalaryType,
+                                                   RequiredExperience = job.RequiredExperience,
+                                                   Status = job.Status,
+                                                   CreatedAt = job.CreatedAt,
+                                                   ApplicationCount = job.Applications.Count()
+                                               })
+                                               .ToListAsync();
             return jobs;
         }
 
@@ -33,6 +46,7 @@ namespace Staffing_Recruting_API.Services.JobsServices
                     Recruiter_ID = recruiterId,
                     From_Salary = addjob.From_Salary,
                     To_Salary = addjob.To_Salary,
+                    RequiredExperience = addjob.RequiredExperience,
                     SalaryType = addjob.SalaryType,
                     Status = addjob.Status,
                     CreatedAt = DateTime.Now
@@ -88,6 +102,7 @@ namespace Staffing_Recruting_API.Services.JobsServices
                     Recruiter_ID = job.Recruiter_ID,
                     From_Salary = job.From_Salary,
                     To_Salary = job.To_Salary,
+                    RequiredExperience = job.RequiredExperience,
                     SalaryType = job.SalaryType,
                     Status = job.Status,
                     CreatedAt = job.CreatedAt
@@ -100,5 +115,27 @@ namespace Staffing_Recruting_API.Services.JobsServices
                 throw new Exception("Error while retrieving data", ex);
             }
         }
+
+        public async Task<IEnumerable<JobApply>> GetJobDetails(int id)
+        {
+            try
+            {
+                var jobDetails = await _appDbContext.Jobs.Where(j => j.Id == id).Select(j => new JobApply
+                {
+                    Title = j.Title,
+                    Description = j.Description,
+                    CreatedAt = j.CreatedAt,
+                    Location = j.Location,
+                    ApplicationCount = _appDbContext.JobApplication.Count(ja => ja.JobID == j.Id)
+                }).ToListAsync();
+
+                return jobDetails;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error while retrieving data", ex);
+            }
+        }
+
     }
 }

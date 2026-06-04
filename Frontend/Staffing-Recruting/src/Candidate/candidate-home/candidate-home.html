@@ -1,47 +1,70 @@
-<div class="page-container dashboard-container">
-    <div class="container">
-        <div class="page-title">
-            <h1>Welcome User</h1>
-            <div class="profile-btn">
-                <button matButton routerLink="/candidate-profile">My Profile</button>
+<div class="candidate-dashboard">
+
+    <header class="dashboard-header fade-in">
+        <div class="header-content">
+            <div class="title-group">
+                <h1 class="premium-title">Discover Your Next Role</h1>
+                <p class="subtitle">Explore the latest opportunities matched to your skills.</p>
             </div>
+            <button class="apple-btn-secondary" routerLink="/candidate-profile">
+                <span class="icon">👤</span> My Profile
+            </button>
         </div>
+    </header>
 
-        <div class="empty-state" *ngIf="!Jobs || Jobs.length === 0">
-            <div class="empty-icon">📂</div>
-            <p>No Jobs Available Right Now</p>
-            <span>Check back soon for new opportunities.</span>
+    <div class="empty-state fade-in" *ngIf="!Jobs || Jobs.length === 0">
+        <div class="empty-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path
+                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                </path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
         </div>
-
-        <div class="jobs-wrapper" *ngIf="Jobs && Jobs.length > 0">
-            <h2 class="section-heading">Available Roles</h2>
-
-            <div class="jobs-grid">
-
-                <div class="job-card" *ngFor="let job of Jobs">
-
-                    <div class="card-header">
-                        <span class="job-status" [class.active]="job.Status === 'Active'">{{job.Status}}</span>
-                        <span class="job-posted">{{job.CreatedAt | date:'mediumDate'}}</span>
-                    </div>
-
-                    <div class="card-body">
-                        <h1 class="job-title">{{job.Title}}</h1>
-                        <p class="job-loc">📍 {{job.Location}}</p>
-                        <p class="job-desc">{{job.Description}}</p>
-                    </div>
-
-                    <div class="card-footer">
-                        <div class="salary-block">
-                            <span class="salary-range">{{job.From_Salary | currency:'INR'}} - {{job.To_Salary |
-                                currency:'INR'}}</span>
-                            <span class="salary-type">{{job.SalaryType}}</span>
-                        </div>
-                        <button class="apply-btn" [routerLink]="['/apply-job',job.Id]">Apply Now</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        <h2>No opportunities right now</h2>
+        <p>We are currently sourcing new roles. Check back soon!</p>
     </div>
+
+    <main class="jobs-wrapper fade-in" *ngIf="Jobs && Jobs.length > 0">
+        <div class="jobs-grid">
+
+            <article class="job-card" *ngFor="let job of Jobs">
+
+                <div class="card-top">
+                    <span class="status-badge" [class.active]="job.Status === 'Active'">
+                        <span class="dot"></span> {{ job.Status || 'Active' }}
+                    </span>
+                    <span class="posted-date">{{ job.CreatedAt | date:'mediumDate' }}</span>
+                </div>
+
+                <div class="card-body">
+                    <h2 class="job-title">{{ job.Title }}</h2>
+
+                    <div class="job-meta">
+                        <span class="meta-item">📍 {{ job.Location }}</span>
+                        <span class="meta-divider">&bull;</span>
+                        <span class="meta-item">{{ job.SalaryType }}</span>
+                    </div>
+
+                    <p class="job-description">{{ job.Description }}</p>
+                </div>
+
+                <div class="card-footer">
+                    <div class="salary-block">
+                        <span class="salary-amount">
+                            {{ job.From_Salary | currency:'INR':'symbol':'1.0-0' }} - {{ job.To_Salary |
+                            currency:'INR':'symbol':'1.0-0' }}
+                        </span>
+                    </div>
+
+                    <button class="apple-btn" [routerLink]="['/apply-job', job.Id]">
+                        Apply Now
+                    </button>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
 </div>

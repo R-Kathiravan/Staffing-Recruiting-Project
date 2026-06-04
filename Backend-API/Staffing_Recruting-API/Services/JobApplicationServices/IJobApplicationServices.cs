@@ -6,5 +6,6 @@ namespace Staffing_Recruting_API.Services.JobApplicationServices
         //Task<IEnumerable<JobApplications>> GetJobApplications();
 
         Task<bool> ApplyToJob(AddJobApplicationDTO jobApplication, string candidateID);
+        Task<IEnumerable<ApplicantProfileDTO>> GetApplicantsForJob(int id);
     }
 }

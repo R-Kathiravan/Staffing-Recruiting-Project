@@ -1,132 +1,256 @@
-/* Premium Dashboard Styling */
-.dashboard-container {
-    min-height: 100vh;
-    background-color: #0a0a0a;
-    /* Cinematic black */
-    color: #ffffff;
-    padding: 60px 40px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+/* --- Base Layout --- */
+.dashboard-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+    color: #1d1d1f;
 }
 
-.page-title h1 {
-    font-size: 2.5rem;
+.dashboard-header {
+    margin-bottom: 48px;
+}
+
+.premium-title {
+    font-size: 40px;
     font-weight: 700;
-    margin-bottom: 40px;
-    background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+    margin: 0 0 8px 0;
 }
 
-/* The Grid: Automatically resizes based on screen width! */
+.subtitle {
+    font-size: 18px;
+    color: #86868b;
+    margin: 0;
+}
+
+/* --- The Grid --- */
 .jobs-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
 }
 
-/* The Glassmorphism Card */
+/* --- Premium Job Card --- */
 .job-card {
-    background: rgba(25, 25, 25, 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    padding: 28px;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    background: #ffffff;
+    border: 1px solid #e5e5ea;
+    border-radius: 24px;
+    padding: 32px;
     display: flex;
     flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 }
 
 .job-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    border-color: #d2d2d7;
 }
 
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* --- Badges --- */
+.card-top {
     margin-bottom: 20px;
 }
 
+.badges {
+    display: flex;
+    gap: 8px;
+}
+
 .status-badge {
-    background: rgba(255, 255, 255, 0.1);
-    color: #a1a1aa;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #f5f5f7;
+    color: #515154;
+    padding: 6px 12px;
+    border-radius: 980px;
+    font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
+}
+
+.status-badge .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #86868b;
 }
 
 .status-badge.active {
-    background: rgba(16, 185, 129, 0.15);
-    /* Subtle neon green */
-    color: #34d399;
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    background: rgba(52, 199, 89, 0.1);
+    color: #248a3d;
 }
 
-.pay-type {
-    color: #71717a;
-    font-size: 0.85rem;
-    font-weight: 500;
+.status-badge.active .dot {
+    background: #34c759;
 }
 
-.job-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin: 0 0 8px 0;
-    line-height: 1.2;
-}
-
-.job-location {
-    color: #a1a1aa;
-    font-size: 0.95rem;
-    margin: 0 0 16px 0;
-}
-
-.job-salary {
-    font-size: 1.25rem;
-    color: #ffffff;
+.type-badge {
+    background: #f5f5f7;
+    color: #515154;
+    padding: 6px 12px;
+    border-radius: 980px;
+    font-size: 12px;
     font-weight: 600;
-    margin: 0 0 16px 0;
 }
 
-.job-description {
-    color: #a1a1aa;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin: 0 0 24px 0;
-
-    /* Truncate long text with an ellipsis (...) after 3 lines! */
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+/* --- Card Body --- */
+.card-body {
     flex-grow: 1;
 }
 
-.card-actions button {
-    width: 100%;
-    background: #ffffff;
-    color: #000000;
-    padding: 12px;
-    border-radius: 10px;
+.job-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.job-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 14px;
+    color: #515154;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.meta-icon {
+    width: 16px;
+    height: 16px;
+    color: #86868b;
+}
+
+.meta-divider {
+    color: #d2d2d7;
+}
+
+.job-description {
+    font-size: 15px;
+    color: #515154;
+    line-height: 1.5;
+    margin: 0 0 32px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* Truncates long descriptions */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* --- Card Footer & Actions --- */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f5f5f7;
+    padding-top: 24px;
+    margin-top: auto;
+}
+
+.tracker-badge {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1d1d1f;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tracker-badge.empty {
+    color: #86868b;
+}
+
+.apple-btn-outline {
+    background: transparent;
+    color: #1d1d1f;
+    border: 1px solid #d2d2d7;
+    border-radius: 980px;
+    padding: 10px 20px;
+    font-size: 14px;
     font-weight: 600;
-    border: none;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.2s ease;
 }
 
-.card-actions button:hover {
-    background: #e4e4e7;
+.apple-btn-outline:hover {
+    background: #1d1d1f;
+    color: #ffffff;
+    border-color: #1d1d1f;
 }
 
+/* --- Empty State --- */
 .empty-state {
     text-align: center;
-    color: #71717a;
-    font-size: 1.2rem;
-    margin-top: 100px;
+    padding: 80px 20px;
+    background: #f5f5f7;
+    border-radius: 32px;
+    border: 2px dashed #d2d2d7;
+}
+
+.empty-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 24px auto;
+    color: #86868b;
+}
+
+.empty-state h2 {
+    font-size: 24px;
+    margin: 0 0 8px 0;
+}
+
+.empty-state p {
+    color: #86868b;
+    margin: 0;
+}
+
+/* --- Animations --- */
+.fade-in {
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Mobile Adjustments --- */
+@media (max-width: 600px) {
+    .dashboard-wrapper {
+        padding: 24px 16px;
+    }
+
+    .premium-title {
+        font-size: 32px;
+    }
+
+    .card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .apple-btn-outline {
+        width: 100%;
+    }
 }

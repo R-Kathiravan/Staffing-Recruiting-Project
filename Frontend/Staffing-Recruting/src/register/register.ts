@@ -10,23 +10,23 @@ import { InsertUsers } from '../Models/Users';
   styleUrl: './register.css',
 })
 export class Register {
-  register : InsertUsers= {
+  register: InsertUsers = {
     UserName: '',
     Password: '',
     Role: '',
     Email: '',
     FullName: ''
   }
+
+  userRole: UserRoles[] = [
+    { viewValue: 'Admin', value: 'Admin' },
+    { viewValue: 'Canditate', value: 'Candidate' },
+    { viewValue: 'Recruiter', value: 'Recruiter' }
+  ]
   
-    userRole: UserRoles[] = [
-      { viewValue: 'Admin', value: 'Admin' },
-      { viewValue: 'Canditate', value: 'Canditate' },
-      { viewValue: 'Recruiter', value: 'Recruiter' }
-    ]
-  
-    constructor(private registerServices : LoginServices) { }
-  
+  constructor(private registerServices: LoginServices) { }
+
   registerUser() {
-    this.registerServices.registerUser(this.register).subscribe(()=> alert("User Created Successfully"))
+    this.registerServices.registerUser(this.register).subscribe(() => alert("User Created Successfully"))
   }
 }

@@ -1,13 +1,12 @@
 Create Database Staffing_Recruting_DB
 
-Create Table Compainies
+Create Table Company
 (
-UID int Identity(1,1),
-Company_Name Nvarchar(200),
-Company_ID Nvarchar(100) primary key Not Null,
+ID int Identity(1,1) PRIMARY KEY,
+Name Nvarchar(200),
 Industry_Type Nvarchar(200),
-Company_Website Nvarchar(300),
-Company_City Nvarchar(200)
+Website Nvarchar(300),
+Location Nvarchar(200)
 )
 
 Create Table Jobs
@@ -17,14 +16,16 @@ Title nvarchar(200),
 Description nvarchar(Max),
 Location Nvarchar(200),
 Recruiter_ID nvarchar(300),
+CompanyID int,
 From_Salary decimal(18,2),
 To_Salary decimal(18,2),
+ RequiredExperience NVarchar(200),
 SalaryType Nvarchar(100),
 Status nvarchar(100),
 CreatedAt DateTime, 
 CONSTRAINT CHK_Job_SalaryText CHECK (SalaryType IN ('Hourly', 'Daily', 'Monthly', 'Yearly')),
 CONSTRAINT CHK_STATUS CHECK(Status IN('Active','InActive','Closed'))
-)
+ )
 
 Create Table Users
 (
@@ -37,22 +38,18 @@ Role Nvarchar(50),
 CreatedAt DateTime
 )
 
-Create Table JobApplications(
-ID int Identity(1,1),
-JobID int,
-CandidateID int,
-FirstName Nvarchar(200),
-LastName Nvarchar(100),
-Email Nvarchar(100),
-Phone Nvarchar(100),
-ResumeURL Nvarchar(max),
-CoverLetterURL Nvarchar(max),
-Status NVARCHAR(50) DEFAULT 'Applied',
+CREATE TABLE JobApplication(
+ID INT IDENTITY(1,1) PRIMARY KEY,
+JobID INT NOT NULL, 
+CandidateID INT NOT NULL,
+CoverLetterURL NVARCHAR(MAX),
+Status NVARCHAR(100) NOT NULL,
 AppliedAt DATETIME DEFAULT GETUTCDATE(),
-ApplicationUpdateDate DateTime,
-CONSTRAINT FK_JobApplications_Jobs FOREIGN KEY (JobId) REFERENCES Jobs(Id) ON DELETE CASCADE,
+ApplicationUpdateDate DATETIME,
+CONSTRAINT FK_JobApplications_Jobs FOREIGN KEY (JobID) REFERENCES Jobs(ID) ON DELETE CASCADE, 
+CONSTRAINT FK_JobApplications_Candidates FOREIGN KEY (CandidateID) REFERENCES Users(ID),  
 CONSTRAINT CHK_Application_Status CHECK (Status IN ('Applied', 'Reviewed', 'Interviewing', 'Offered', 'Rejected'))
-)
+);
 
 Create Table CandidateProfile
 (ID int Identity(1,1) Primary Key,
@@ -71,25 +68,30 @@ LastUpdatedAt DateTime,
 CONSTRAINT FK_USERID_CANPROFILE FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE
 )
 
-ALTER TABLE Users ADD CONSTRAINT PK_Users PRIMARY KEY (ID);
+ALTER TABLE Jobs Drop CONSTRAINT  FK_Jobs_Companies
 
-Alter table CandidateProfile Add  Education Nvarchar(MAX);
+Alter table Company Add  Location Nvarchar(200);
 
 Select * From Jobs
+   
+Select * From Company 
  
-Select * From Compainies 
-
 Select * From Users
 
-Select * From JobApplications
+Select * From JobApplication
 
 Select * From CandidateProfile
 
---Drop table  JobApplication
+Select * FROM JobApplication
 
-ALTER TABLE Jobs
-DROP Column Company_ID;
+--Drop table  Companies
 
-update Users Set Role = 'Admin' where Role = 'admin'
+--ALTER TABLE Company DROP Column Company_City;
 
-Delete From Users Where ID=4
+update Jobs Set CompanyID =1 where ID=1
+
+Delete From CandidateProfile Where ID=4
+
+Select * From JobApplication Where JobID =1
+
+Insert into Company (Name, Industry_Type, Website, Location) Values('Google', 'Software', 'google.com','India')

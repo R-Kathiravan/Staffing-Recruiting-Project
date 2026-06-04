@@ -2,24 +2,27 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Staffing_Recruting_API.Model;
+using Staffing_Recruting_API.Services.JobApplicationServices;
 using Staffing_Recruting_API.Services.JobsServices;
 
 namespace Staffing_Recruting_API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class JobsController : Controller
+    public class RecruiterController : Controller
     {
         public readonly IJobServices _jobServices;
-        public JobsController(IJobServices jobServices)
+        public readonly IJobApplicationServices _jobApplicationServices;
+        public RecruiterController(IJobServices jobServices, IJobApplicationServices jobApplicationServices)
         {
             _jobServices = jobServices;
+            _jobApplicationServices = jobApplicationServices;
         }
         [HttpGet("GetJobs")]
 
         [Authorize(Roles = "Recruiter")]
 
-        public async Task<ActionResult<IEnumerable<Jobs>>> GetJobs()
+        public async Task<ActionResult<IEnumerable<GetJobs>>> GetJobs()
         {
             try
             {
@@ -34,9 +37,9 @@ namespace Staffing_Recruting_API.Controllers
                     return Ok(jobs);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -57,9 +60,9 @@ namespace Staffing_Recruting_API.Controllers
                     return Created();
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
 
         }
@@ -81,33 +84,32 @@ namespace Staffing_Recruting_API.Controllers
                     return Created();
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
         }
 
-        [HttpGet("GetAllJobs")]
-        [Authorize(Roles = "Candidate")]
-        public async Task<ActionResult<GetJobs>> GetAllJobs()
+        [HttpGet("GetApplicantsPerJob/{id}")]
+        [Authorize(Roles = "Recruiter")]
+        public async Task<ActionResult<IEnumerable<ApplicantProfileDTO>>> GetApplicantsPerJob(int id)
         {
             try
             {
-                var jobs = await _jobServices.GetAllJobs();
-                if (jobs == null)
+                var jobDetails = await _jobApplicationServices.GetApplicantsForJob(id);
+                if (jobDetails == null)
                 {
                     return NoContent();
                 }
                 else
                 {
-                    return Ok(jobs);
+                    return Ok(jobDetails);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
         }
-
     }
 }

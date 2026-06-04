@@ -33,3 +33,12 @@ export interface IGetJobs {
     Status: string;
     CreatedAt: string;
 }
+
+
+export interface IJobApplyDetails{
+    Title:string;
+    Description:string;
+    Location:string;
+    CreatedAt:string;
+    ApplicationCount:number;
+}

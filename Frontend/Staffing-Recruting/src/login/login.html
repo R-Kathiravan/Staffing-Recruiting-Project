@@ -23,7 +23,7 @@
                     </div>
                     <div class="form-value">
                         <mat-form-field>
-                            <mat-label>Login Role</mat-label>
+                            <mat-label>Login As</mat-label>
                             <mat-select [(ngModel)]="login.role" name="role">
                                 @for (role of userRole; track role.value) {
                                 <mat-option [value]="role.value">{{role.viewValue}}</mat-option>

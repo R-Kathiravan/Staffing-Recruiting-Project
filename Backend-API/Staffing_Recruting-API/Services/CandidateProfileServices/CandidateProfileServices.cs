@@ -65,17 +65,14 @@ namespace Staffing_Recruting_API.Services.CandidateProfileServices
         {
             try
             {
-                // This is pure EF Core LINQ, no raw SQL!
                 var result = await (
                     from profile in _appDbContext.CandidateProfile
 
-                        // 🔥 Here is the explicit join forcing UserID to match the User's ID
                     join user in _appDbContext.Users
                     on profile.UserID equals user.ID
 
                     where profile.UserID == num
 
-                    // Map the matched data directly into your return object
                     select new GetCandidateProfile
                     {
                         ID = profile.ID,
@@ -92,13 +89,11 @@ namespace Staffing_Recruting_API.Services.CandidateProfileServices
                         ResumeUrl = profile.ResumeUrl,
                         LastUpdatedAt = profile.LastUpdatedAt,
 
-                        // Grabbing from the joined 'user' table
                         Email = user.Email,
                         UserName = user.UserName
                     }
                 ).FirstOrDefaultAsync();
 
-                // If no match is found, 'result' is already null, so we just return it!
                 return result;
 
             }
@@ -107,6 +102,25 @@ namespace Staffing_Recruting_API.Services.CandidateProfileServices
                 throw ex;
             }
         }
+        public async Task<GetCandidateResume> GetCandidateResume(int num)
+        {
+            try
+            {
+                var result = await _appDbContext.CandidateProfile
+                    .Where(x => x.UserID == num)
+                    .Select(x => new GetCandidateResume
+                    {
+                        ResumeUrl = x.ResumeUrl
+                    })
+                    .FirstOrDefaultAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
     }
 }

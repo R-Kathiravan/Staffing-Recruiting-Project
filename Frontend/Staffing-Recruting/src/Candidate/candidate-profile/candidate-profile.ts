@@ -52,8 +52,9 @@ export class CandidateProfile implements OnInit {
         this.candidateServices.uploadResume(formData).subscribe({
           next: (response: any) => {
             this.profileForm.patchValue({
-              ResumeUrl: response.url
+              ResumeUrl: response.Url
             });
+            console.log(response)
             this.saveProfileData();
           },
           error: (err: any) => {
@@ -72,6 +73,7 @@ export class CandidateProfile implements OnInit {
   }
 
   private saveProfileData() {
+    console.log(this.profileForm.value)
     this.candidateServices.CreateCandidateProfile(this.profileForm.value).subscribe({
       next: (res: any) => {
         console.log("Successfully Created/Updated the user Account!");

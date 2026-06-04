@@ -4,7 +4,7 @@ namespace Staffing_Recruting_API.Services.JobsServices
 {
     public interface IJobServices
     {
-        Task<IEnumerable<Jobs>> GetJobs(string recId);
+        Task<IEnumerable<GetJobs>> GetJobs(string recId);
 
         Task<bool> AddJobs(AddJobsDTO jobs, string recId);
 
@@ -13,5 +13,7 @@ namespace Staffing_Recruting_API.Services.JobsServices
         Task<IEnumerable<GetJobs>> GetAllJobs();
 
         Task<bool> UpdateJobs(UpdateJobsDTO jobs);
+
+        Task<IEnumerable<JobApply>> GetJobDetails(int id);
     }
 }

@@ -18,6 +18,7 @@ export class AddJobs implements OnInit {
     Location: new FormControl('', [Validators.required]),
     From_Salary: new FormControl(0, [Validators.required]),
     To_Salary: new FormControl(0, [Validators.required]),
+    RequiredExperience: new FormControl('', Validators.required),
     SalaryType: new FormControl('', [Validators.required]),
     Status: new FormControl('', [Validators.required])
   },
@@ -41,7 +42,7 @@ export class AddJobs implements OnInit {
           console.log(err.message);
         },
       })
-    }
+    }    
   }
 
 
@@ -50,10 +51,9 @@ export const salaryRangeValidator: ValidatorFn = (control: AbstractControl): Val
   const fromSalary = control.get('From_Salary')?.value;
   const toSalary = control.get('To_Salary')?.value;
 
-  // If both exist and 'From' is strictly greater than 'To', throw an error!
   if (fromSalary !== null && toSalary !== null && fromSalary > toSalary) {
     return { invalidSalaryRange: true };
   }
 
-  return null; // Return null if everything is perfect
+  return null;    
 };

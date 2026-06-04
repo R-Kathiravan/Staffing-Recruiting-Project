@@ -20,7 +20,7 @@ export class ListJobs implements OnInit {
       next: (respnse: any) => {
         // alert("Fetched Data" + respnse);
         this.jobs = respnse;
-        // console.log(this.jobs)
+        console.log(this.jobs)
       },
       error(ex) {
         // alert("cant reterive data" + ex.message)

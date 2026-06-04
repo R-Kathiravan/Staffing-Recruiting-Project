@@ -1,125 +1,134 @@
-<div class="page-container dashboard-container">
-    <div class="container">
-        <div class="page-title">
-            <h1>Candidate Profile</h1>
-            <p>Fill out your details to enable 1-click applications.</p>
-        </div>
+<div class="profile-wrapper">
 
-        <div class="profile-card">
-             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <header class="profile-header fade-in">
+        <h1 class="premium-title">Candidate Profile</h1>
+        <p class="subtitle">Complete your details to enable lightning-fast 1-click applications.</p>
+    </header>
 
-                <div class="form-grid">
+    <div class="premium-form-card fade-in">
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
 
-                     <div class="form-group">
-                        <label>First Name *</label>
-                        <input type="text" formControlName="FirstName" class="custom-input" placeholder="John">
-                        <span class="error-text"
-                            *ngIf="profileForm.get('FirstName')?.touched && profileForm.get('FirstName')?.invalid">
-                            First Name is required.
-                        </span>
-                    </div>
+            <div class="form-grid">
 
-                     <div class="form-group">
-                        <label>Last Name *</label>
-                        <input type="text" formControlName="LastName" class="custom-input" placeholder="Doe">
-                        <span class="error-text"
-                            *ngIf="profileForm.get('LastName')?.touched && profileForm.get('LastName')?.invalid">
-                            Last Name is required.
-                        </span>
-                    </div>
+                <div class="form-group">
+                    <label>First Name <span class="required">*</span></label>
+                    <input type="text" formControlName="FirstName" class="custom-input" placeholder="e.g. Kathiravan">
+                    <span class="error-text"
+                        *ngIf="profileForm.get('FirstName')?.touched && profileForm.get('FirstName')?.invalid">
+                        First Name is required.
+                    </span>
+                </div>
 
-                     <div class="form-group full-width">
-                        <label>Professional Title *</label>
-                        <input type="text" formControlName="ProfessionalTitle" class="custom-input"
-                            placeholder="e.g. Senior Angular Developer">
-                        <span class="error-text"
-                            *ngIf="profileForm.get('ProfessionalTitle')?.touched && profileForm.get('ProfessionalTitle')?.invalid">
-                            Title is required.
-                        </span>
-                    </div>
+                <div class="form-group">
+                    <label>Last Name <span class="required">*</span></label>
+                    <input type="text" formControlName="LastName" class="custom-input" placeholder="e.g. R">
+                    <span class="error-text"
+                        *ngIf="profileForm.get('LastName')?.touched && profileForm.get('LastName')?.invalid">
+                        Last Name is required.
+                    </span>
+                </div>
 
-                     <div class="form-group full-width">
-                        <label>Professional Bio *</label>
-                        <textarea formControlName="Bio" class="custom-input" rows="4"
-                            placeholder="Tell us about your experience..."></textarea>
-                        <span class="error-text"
-                            *ngIf="profileForm.get('Bio')?.touched && profileForm.get('Bio')?.invalid">
-                            Bio is required.
-                        </span>
-                    </div>
+                <div class="form-group full-width">
+                    <label>Professional Title <span class="required">*</span></label>
+                    <input type="text" formControlName="ProfessionalTitle" class="custom-input"
+                        placeholder="e.g. Full Stack Developer">
+                    <span class="error-text"
+                        *ngIf="profileForm.get('ProfessionalTitle')?.touched && profileForm.get('ProfessionalTitle')?.invalid">
+                        Title is required.
+                    </span>
+                </div>
 
-                     <div class="form-group">
-                        <label>Top Skills *</label>
-                        <input type="text" formControlName="Skills" class="custom-input"
-                            placeholder="C#, Angular, SQL...">
-                        <span class="error-text"
-                            *ngIf="profileForm.get('Skills')?.touched && profileForm.get('Skills')?.invalid">
-                            Skills are required.
-                        </span>
-                    </div>
-                    <div class="form-group">
-                        <label>Experience *</label>
-                        <input type="text" formControlName="Experience" class="custom-input"
-                            placeholder="Fresher, Experienced">
-                        <span class="error-text"
-                            *ngIf="profileForm.get('Experience')?.touched && profileForm.get('Skills')?.invalid">
-                            Experience is required.
-                        </span>
-                    </div>
+                <div class="form-group full-width">
+                    <label>Professional Bio <span class="required">*</span></label>
+                    <textarea formControlName="Bio" class="custom-input textarea-input" rows="4"
+                        placeholder="Tell recruiters about your journey and expertise..."></textarea>
+                    <span class="error-text" *ngIf="profileForm.get('Bio')?.touched && profileForm.get('Bio')?.invalid">
+                        Bio is required.
+                    </span>
+                </div>
 
-                     <div class="form-group">
-                        <label>Education *</label>
-                        <input type="text" formControlName="Education" class="custom-input"
-                            placeholder="B.S. Computer Science">
-                        <span class="error-text"
-                            *ngIf="profileForm.get('Education')?.touched && profileForm.get('Education')?.invalid">
-                            Education is required.
-                        </span>
-                    </div>
+                <div class="form-group">
+                    <label>Top Skills <span class="required">*</span></label>
+                    <input type="text" formControlName="Skills" class="custom-input" placeholder="C#, UI/UX, SQL...">
+                    <span class="error-text"
+                        *ngIf="profileForm.get('Skills')?.touched && profileForm.get('Skills')?.invalid">
+                        Skills are required.
+                    </span>
+                </div>
 
-                     <div class="form-group">
-                        <label>LinkedIn URL *</label>
-                        <input type="url" formControlName="LinkedInUrl" class="custom-input"
-                            placeholder="https://linkedin.com/in/...">
-                        <span class="error-text"
-                            *ngIf="profileForm.get('LinkedInUrl')?.touched && profileForm.get('LinkedInUrl')?.invalid">
-                            LinkedIn profile is required.
-                        </span>
-                    </div>
+                <div class="form-group">
+                    <label>Experience <span class="required">*</span></label>
+                    <input type="text" formControlName="Experience" class="custom-input"
+                        placeholder="Fresher, 2 Years, etc.">
+                    <span class="error-text"
+                        *ngIf="profileForm.get('Experience')?.touched && profileForm.get('Experience')?.invalid">
+                        Experience is required.
+                    </span>
+                </div>
 
-                     <div class="form-group">
-                        <label>GitHub URL (Optional)</label>
-                        <input type="url" formControlName="GithubUrl" class="custom-input"
-                            placeholder="https://github.com/...">
-                    </div>
+                <div class="form-group">
+                    <label>Education <span class="required">*</span></label>
+                    <input type="text" formControlName="Education" class="custom-input"
+                        placeholder="M.Sc. Computer Science">
+                    <span class="error-text"
+                        *ngIf="profileForm.get('Education')?.touched && profileForm.get('Education')?.invalid">
+                        Education is required.
+                    </span>
+                </div>
 
-                     <div class="form-group full-width">
-                        <label>Resume (PDF/Word) *</label>
+                <div class="form-group">
+                    <label>LinkedIn URL <span class="required">*</span></label>
+                    <input type="url" formControlName="LinkedInUrl" class="custom-input"
+                        placeholder="https://linkedin.com/in/...">
+                    <span class="error-text"
+                        *ngIf="profileForm.get('LinkedInUrl')?.touched && profileForm.get('LinkedInUrl')?.invalid">
+                        Valid LinkedIn profile is required.
+                    </span>
+                </div>
 
-                         <input type="file" #fileInput hidden (change)="onFileChange($event)" accept=".pdf,.doc,.docx">
+                <div class="form-group full-width">
+                    <label>GitHub URL <span class="optional">(Optional)</span></label>
+                    <input type="url" formControlName="GithubUrl" class="custom-input"
+                        placeholder="https://github.com/...">
+                </div>
 
-                         <div class="resume-upload-zone" (click)="fileInput.click()">
-                            <div class="upload-icon">📄</div>
-                            <h3 *ngIf="!profileForm.get('ResumeUrl')?.value">Click to Upload Resume</h3>
-                            <h3 *ngIf="profileForm.get('ResumeUrl')?.value" class="success-text">{{
-                                displayResumeName }}</h3>
+                <div class="form-group full-width">
+                    <label>Resume (PDF/Word) <span class="required">*</span></label>
+                    <input type="file" #fileInput hidden (change)="onFileChange($event)" accept=".pdf,.doc,.docx">
+
+                    <div class="resume-upload-zone" (click)="fileInput.click()"
+                        [class.has-file]="profileForm.get('ResumeUrl')?.value">
+                        <div class="upload-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="12" y1="18" x2="12" y2="12"></line>
+                                <polyline points="9 15 12 12 15 15"></polyline>
+                            </svg>
                         </div>
 
-                        <span class="error-text"
-                            *ngIf="profileForm.get('ResumeUrl')?.touched && profileForm.get('ResumeUrl')?.invalid">
-                            You must attach a resume.
-                        </span>
+                        <div class="upload-text">
+                            <h3 *ngIf="!profileForm.get('ResumeUrl')?.value">Click to Upload Resume</h3>
+                            <h3 *ngIf="profileForm.get('ResumeUrl')?.value" class="success-text">{{ displayResumeName }}
+                            </h3>
+                            <p *ngIf="!profileForm.get('ResumeUrl')?.value">Supports PDF, DOC, DOCX up to 5MB</p>
+                        </div>
                     </div>
 
+                    <span class="error-text"
+                        *ngIf="profileForm.get('ResumeUrl')?.touched && profileForm.get('ResumeUrl')?.invalid">
+                        You must attach a resume.
+                    </span>
                 </div>
 
-                <!-- Submit Action -->
-                <div class="form-actions">
-                    <!-- Button is disabled until the whole form is valid! -->
-                    <button type="submit" class="save-btn" [disabled]="profileForm.invalid">Save Profile</button>
-                </div>
+            </div>
 
-            </form>
-        </div>
+            <div class="form-actions">
+                <button type="submit" class="apple-btn" [disabled]="profileForm.invalid">
+                    Save Profile
+                </button>
+            </div>
+
+        </form>
     </div>
 </div>

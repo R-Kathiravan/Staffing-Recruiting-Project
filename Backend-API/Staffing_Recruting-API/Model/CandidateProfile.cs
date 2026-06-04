@@ -52,4 +52,9 @@
         public DateTime? LastUpdatedAt { get; set; }
     }
 
+    public class GetCandidateResume
+    {
+        public string? ResumeUrl { get; set; }
+
+    }
 }

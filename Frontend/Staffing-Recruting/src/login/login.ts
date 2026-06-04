@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SharedModules } from '../Shared/shared-modules';
 import { LoginServices } from '../Services/Users/loginServices';
 import { UserRoles } from '../Models/Users';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {
+export class Login implements OnInit{
   login = {
     userName: '',
     password: '',
@@ -23,10 +23,15 @@ export class Login {
     { viewValue: 'Recruiter', value: 'Recruiter' }
   ]
 
-
+ngOnInit(){
+  localStorage.removeItem("user-token")
+}
 
   constructor(private loginservices: LoginServices, private router: Router) { }
   loginUser() {
+    console.log(this.login)
+    this.login.userName = this.login.userName.trim();
+    this.login.password = this.login.password.trim();
     this.loginservices.checkUser(this.login).subscribe({
       next: (repsonse: any) => {
         console.log(repsonse);

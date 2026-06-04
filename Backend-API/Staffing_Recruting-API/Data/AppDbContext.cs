@@ -11,9 +11,10 @@ namespace Staffing_Recruting_API.Data
 
         public DbSet<Jobs> Jobs { get; set; }
 
-        public DbSet<JobApplications> JobApplications { get; set; }
+        public DbSet<JobApplication> JobApplication { get; set; }
 
         public DbSet<CandidateProfile> CandidateProfile { get; set; }
+        public DbSet<Company> Company { get; set; }
 
     }
 }
